@@ -24,12 +24,111 @@ Crafty.c('Actor', {
   },
 });
 
+Crafty.c('Restart', {
+  init: function() {
+    this.requires('2D, Canvas, DOM, Grid, Mouse, Text')
+        .text('&#61666;')
+        .css({
+          'color': 'rgb(255, 0, 0)',
+          'margin-top': '16px',
+          'margin-left': '16px',
+          'text-shadow': '0 2px 2px rgba(0, 0, 0, 0.3)',
+        })
+        .textFont({
+          weight: 'bold',
+          size: '2em',
+          family: 'FontAwesome'
+        });
+    this._element.parentNode.removeChild(this._element);
+    Crafty.stage.elem.appendChild(this._element);
+    this.z = 101;
+    Crafty.addEvent(this, this._element, 'mouseover', this._onmouseover);
+    Crafty.addEvent(this, this._element, 'mousedown', this._onmousedown);
+  },
+
+  _onmouseover: function() {
+    this.css({
+      'cursor': 'pointer'
+    });
+  },
+
+  _onmousedown: function() {
+    var allLabels = '';
+    $('.Label').each(function() {
+      allLabels += $(this).text();
+      allLabels += ' ';
+    });
+    if (allLabels === '') {
+      allLabels = 'person who gives up without even trying';
+    }
+    Crafty('Wall').destroy();
+    Crafty('Enemy').destroy();
+    $('.Label').remove();
+    $('.Restart').remove();
+    Crafty('Player').tween({
+      x: Game.vp_width() / 2 - Game.grid.tile.width / 2,
+      y: Game.vp_height() / 2 - Game.grid.tile.height / 2 + Crafty.viewport._y,
+    }, 350);
+    // Crafty.viewport.zoom(2.4, Game.vp_width() / 2, Game.vp_height() / 2, 350);
+    Crafty.e('2D, DOM, Text')
+          .css({
+            'text-align': 'center',
+            'text-transform': 'uppercase'
+          })
+          .textFont({
+            weight: 'bold',
+            size: '2.4em',
+            family: 'Montserrat'
+          })
+          .text('You lose!')
+          .attr({
+            w: Game.width(),
+            x: 0,
+            y: Game.vp_height() / 3
+          });
+    Crafty.e('2D, DOM, Text')
+          .css({
+            'text-align': 'center',
+            'text-transform': 'uppercase'
+          })
+          .textFont({
+            weight: 'bold',
+            size: '1.6em',
+            family: 'Montserrat'
+          })
+          .text('&uarr;')
+          .attr({
+            w: Game.width(),
+            x: 0,
+            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height
+          });
+    Crafty.e('2D, DOM, Text')
+          .css({
+            'text-align': 'center',
+            'text-transform': 'uppercase'
+          })
+          .textFont({
+            weight: 'bold',
+            size: '1.6em',
+            family: 'Montserrat'
+          })
+          .text('You are officially a ' + allLabels.trim())
+          .attr({
+            w: Game.width() - Game.grid.tile.width * 4,
+            x: Game.grid.tile.width * 2,
+            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height / 2
+          });
+    setTimeout(function() {
+      location.reload();
+    }, 5000);
+  }
+});
+
 Crafty.c('Player', {
   init: function() {
-    this.requires('Actor, Delay, Fourway, Color, Collision')
-      .fourway(3)
+    this.requires('Actor, Delay, Fourway, Color, Collision, Tween')
+      .fourway(4)
       .color('rgb(255, 0, 0)')
-      .stopOnSolids()
       .failOnEnemies();
   },
 
@@ -73,8 +172,8 @@ Crafty.c('Player', {
       this.destroy();
     }, 800);
     this.at(2, 2);
-    var position = Game.labels.positions[Math.floor(Math.random() * Game.labels.positions.length)];
-    util.remove(Game.labels.positions, position);
+    var position = Game.labels.positions.shift();
+    Game.labels.positions.push(position);
     var label = Crafty.e('Label').attr({
       x: position[0],
       y: position[1],
@@ -87,6 +186,7 @@ Crafty.c('Player', {
 
 Crafty.c('Label', {
   init: function() {
+    var word = Game.labels.wordlist.shift();
     this.requires('2D, Canvas, Color, DOM, Text')
         .color('rgb(255, 255, 255')
         .css({
@@ -95,12 +195,13 @@ Crafty.c('Label', {
           'text-align': 'center',
           'text-transform': 'uppercase'
         })
-        .text(Game.labels.wordlist[Math.floor(Math.random() * Game.labels.wordlist.length)])
+        .text(word)
         .textFont({
           weight: 'bold',
           size: '6em',
           family: 'Montserrat'
         });
+    Game.labels.wordlist.push(word);
     this._element.parentNode.removeChild(this._element);
     Crafty.stage.elem.appendChild(this._element);
     this.z = 100;

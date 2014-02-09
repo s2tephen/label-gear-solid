@@ -109,6 +109,13 @@ var Util = function() {
     // a, b: sides of triangle
     distance: function(a, b) {
       return Math.sqrt(a * a + b * b);
+    },
+
+    // Jonas Raoni Soares Silva
+    // http://jsfromhell.com/array/shuffle [v1.0]
+    shuffle: function(o) {
+      for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+      return o;
     }
   };
 
