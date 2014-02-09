@@ -67,7 +67,7 @@ Crafty.c('Restart', {
     $('.Restart').remove();
     Crafty('Player').tween({
       x: Game.vp_width() / 2 - Game.grid.tile.width / 2,
-      y: Game.vp_height() / 2 - Game.grid.tile.height / 2 + Crafty.viewport._y,
+      y: Game.vp_height() / 2 - Game.grid.tile.height / 2 - Crafty.viewport._y,
     }, 350);
     // Crafty.viewport.zoom(2.4, Game.vp_width() / 2, Game.vp_height() / 2, 350);
     Crafty.e('2D, DOM, Text')
@@ -84,7 +84,7 @@ Crafty.c('Restart', {
           .attr({
             w: Game.width(),
             x: 0,
-            y: Game.vp_height() / 3
+            y: Game.vp_height() / 3 - Crafty.viewport._y
           });
     Crafty.e('2D, DOM, Text')
           .css({
@@ -100,7 +100,7 @@ Crafty.c('Restart', {
           .attr({
             w: Game.width(),
             x: 0,
-            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height
+            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height - Crafty.viewport._y
           });
     Crafty.e('2D, DOM, Text')
           .css({
@@ -112,15 +112,15 @@ Crafty.c('Restart', {
             size: '1.6em',
             family: 'Montserrat'
           })
-          .text('You are officially a ' + allLabels.trim())
+          .text('You are a ' + allLabels.trim())
           .attr({
             w: Game.width() - Game.grid.tile.width * 4,
             x: Game.grid.tile.width * 2,
-            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height / 2
+            y: 2 * Game.vp_height() / 3 - Game.grid.tile.height / 2 - Crafty.viewport._y
           });
     setTimeout(function() {
       location.reload();
-    }, 5000);
+    }, 8000);
   }
 });
 

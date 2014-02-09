@@ -6,10 +6,16 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="assets/style.css" rel="stylesheet">
-    <link href="http://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   </head>
 
   <body>
+    <div id="credits">
+      <h2>Label Gear Solid (v0.1)</h2>
+      Use the <strong>arrow keys</strong> or <strong>WASD</strong> to move. Try to get through your day without being labeled by other people.<br /><br />
+      If it gets too difficult, you can reset the game by clicking the icon in the top-left corner.<br /><br />
+      Created by <strong>Michael Suen</strong> (<a href="http://twitter.com/poetichentai">@poetichentai</a>) and <strong>Stephen Suen</strong> (<a href="http://twitter.com/s2tephen">@s2tephen</a>) for the <a href="http://quiltbag2.herokuapp.com/">2014 QUILTBAG Jam</a> at MIT.
+    </div>
     <script src="lib/jquery-2.1.0.min.js"></script>
     <script src="lib/crafty-min.js"></script>
     <script src="src/util.js"></script>
@@ -18,6 +24,8 @@
     <script type="text/javascript">
       $(function() {
         Game.start();
+        $('#credits').appendTo($('body'))
+                     .show();
       });
     </script>
   </body>

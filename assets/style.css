@@ -1,6 +1,22 @@
+a {
+  color: #3498db;
+}
+
+a:hover {
+  color: #f39c12;
+}
+
 #cr-stage {
   border: 1px solid #000;
   margin: auto;
+}
+
+#credits {
+  display: none;
+  width: 100%;
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Montserrat';
 }
 
 @font-face {

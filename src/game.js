@@ -219,14 +219,13 @@ Game = {
     enemy6.addToSequence([13, 13]);
     enemy6.move();
 
-    var enemy7 = Crafty.e('Enemy').at(12, 10);
+    var enemy7 = Crafty.e('Enemy').at(7, 10);
     enemy7.speed(7);
-    enemy7.addToSequence([7, 10]);
     enemy7.addToSequence([12, 10]);
     enemy7.addToSequence([12, 13]);
     enemy7.addToSequence([12, 10]);
     enemy7.addToSequence([14, 10]);
-    enemy7.addToSequence([12, 10]);
+    enemy7.addToSequence([7, 10]);
     enemy7.move();
 
     var enemy8 = Crafty.e('Enemy').at(11, 8);
