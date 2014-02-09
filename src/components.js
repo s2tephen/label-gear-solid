@@ -129,6 +129,7 @@ Crafty.c('Player', {
     this.requires('Actor, Delay, Fourway, Color, Collision, Tween')
       .fourway(4)
       .color('rgb(255, 0, 0)')
+      .stopOnSolids()
       .failOnEnemies();
   },
 
