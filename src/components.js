@@ -102,6 +102,8 @@ Crafty.c('Restart', {
             x: 0,
             y: 2 * Game.vp_height() / 3 - Game.grid.tile.height - Crafty.viewport._y
           });
+    var vowels = ['a','e','i','o','u'];
+    var a = util.contains(vowels, allLabels[0]) ? 'an' : 'a';
     Crafty.e('2D, DOM, Text')
           .css({
             'text-align': 'center',
@@ -112,7 +114,7 @@ Crafty.c('Restart', {
             size: '1.6em',
             family: 'Montserrat'
           })
-          .text('You are a ' + allLabels.trim())
+          .text('You are ' + a + ' ' + allLabels.trim())
           .attr({
             w: Game.width() - Game.grid.tile.width * 4,
             x: Game.grid.tile.width * 2,
